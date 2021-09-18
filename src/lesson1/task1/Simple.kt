@@ -53,8 +53,11 @@ fun quadraticRootProduct(a: Double, b: Double, c: Double): Double {
  * Пример главной функции
  */
 fun main() {
-    val x1x2 = quadraticRootProduct(1.0, 13.0, 42.0)
-    println("Root product: $x1x2")
+    //val x1x2 = quadraticRootProduct(1.0, 13.0, 42.0)
+    //println("Root product: $x1x2")
+    println(seconds(19,18,0))
+    println(lengthInMeters(8,2,11))
+    println(accountInThreeYears(100000,4))
 }
 
 /**
@@ -65,7 +68,10 @@ fun main() {
  * Пользователь задает время в часах, минутах и секундах, например, 8:20:35.
  * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
  */
-fun seconds(hours: Int, minutes: Int, seconds: Int): Int = TODO()
+fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
+    val s: Int = (hours * 3600) + (minutes * 60) + seconds
+    return s
+}
 
 /**
  * Тривиальная (1 балл)
@@ -74,7 +80,11 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int = TODO()
  * Определить длину того же отрезка в метрах (в данном случае 18.98).
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
-fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = TODO()
+fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
+    val v = 4.445
+    val x: Double = ((vershoks * v) + ((16 * v) * arshins) + (((16 * v) * 3) * sagenes)) / 100
+    return x
+}
 
 /**
  * Тривиальная (1 балл)
@@ -116,7 +126,13 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
-fun accountInThreeYears(initial: Int, percent: Int): Double = TODO()
+fun accountInThreeYears(initial: Int, percent: Int): Double {
+    val i: Double = initial.toDouble()
+    val first: Double = i + ((i/100) * percent)
+    val second: Double = first + ((first/100) * percent)
+    val third: Double = second + ((second/100) * percent)
+    return third
+}
 
 /**
  * Простая (2 балла)

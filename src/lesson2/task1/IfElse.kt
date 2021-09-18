@@ -11,6 +11,10 @@ import kotlin.math.sqrt
 // Рекомендуемое количество баллов = 5
 // Вместе с предыдущими уроками = 9/12
 
+fun main(){
+        println(ageDescription(1))
+}
+
 /**
  * Пример
  *
@@ -68,7 +72,20 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = TODO()
+fun ageDescription(age: Int): String {
+    when {
+        age > 200 -> return "Введено слишком большое значение"
+        age < 0 -> return "Возраст не может быть отрицательным"
+        age % 100 in 11..14 -> return "$age лет"
+        age % 10 == 1 -> return "$age год"
+        age % 10 == 0 -> return "$age лет"
+        age % 10 in 2..4 -> return "$age года"
+        age % 10 in 5..9 -> return "$age лет"
+        else -> return ""
+    }
+}
+
+
 
 /**
  * Простая (2 балла)
