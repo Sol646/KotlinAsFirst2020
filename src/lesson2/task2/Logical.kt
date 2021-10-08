@@ -6,7 +6,7 @@ import lesson1.task1.sqr
 import lesson2.task1.triangleKind
 
 fun main(){
-    println(daysInMonth(2, 1990))
+    println(daysInMonth(11, 1))
 }
 /**
  * Пример
@@ -31,8 +31,6 @@ fun isNumberHappy(number: Int): Boolean {
     else return false
 }
 
-
-
 /**
  * Простая (2 балла)
  *
@@ -55,7 +53,7 @@ fun daysInMonth(month: Int, year: Int): Int {
         2 -> return 28
         in 1..7 step 2 -> return 31
         in 8..12 step 2 -> return 31
-        4, 6, 9, 10 -> return 30
+        4, 6, 9, 10, 11 -> return 30
         else -> return 0
     }
 }

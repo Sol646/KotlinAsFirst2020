@@ -126,7 +126,9 @@ fun collatzSteps(x: Int): Int = TODO()
 
 fun lcm(m: Int, n: Int): Int {
     var s: Int = 0
-    for (i in 1..2147483647) {
+    var a: Int = max(m,n)
+    for (i in 1..a) {
+        a++
         s = i
         if ((i % m == 0) && (i % n == 0)) break
     }
@@ -152,11 +154,11 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
 fun revert(n: Int): Int {
     var v: Int = 0
     var t: Int = n
-    if (t > 0) do{
+    if (t > 0) while (t > 0){
         v += t % 10
-        v *= 10
         t /= 10
-    } while (t > 0)
+        v *= 10
+    }
     else return 0
     return v / 10
 }
