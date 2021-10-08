@@ -2,6 +2,9 @@
 
 package lesson3.task1
 
+import lesson1.task1.sqr
+import java.lang.Math.max
+import java.lang.Math.pow
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -120,7 +123,15 @@ fun collatzSteps(x: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+
+fun lcm(m: Int, n: Int): Int {
+    var s: Int = 0
+    for (i in 1..2147483647) {
+        s = i
+        if ((i % m == 0) && (i % n == 0)) break
+    }
+    return s
+}
 
 /**
  * Средняя (3 балла)
@@ -138,7 +149,17 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var v: Int = 0
+    var t: Int = n
+    if (t > 0) do{
+        v += t % 10
+        v *= 10
+        t /= 10
+    } while (t > 0)
+    else return 0
+    return v / 10
+}
 
 /**
  * Средняя (3 балла)
@@ -192,6 +213,7 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
+
 fun squareSequenceDigit(n: Int): Int = TODO()
 
 /**

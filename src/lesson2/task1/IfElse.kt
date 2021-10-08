@@ -3,6 +3,7 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
 import kotlin.math.max
 import kotlin.math.sqrt
 
@@ -12,7 +13,7 @@ import kotlin.math.sqrt
 // Вместе с предыдущими уроками = 9/12
 
 fun main(){
-        println(ageDescription(1))
+        println(triangleKind(4.0, 6.0, 8.0))
 }
 
 /**
@@ -81,7 +82,7 @@ fun ageDescription(age: Int): String {
         age % 10 == 0 -> return "$age лет"
         age % 10 in 2..4 -> return "$age года"
         age % 10 in 5..9 -> return "$age лет"
-        else -> return ""
+        else -> return "Другое значение"
     }
 }
 
@@ -98,7 +99,19 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double = TODO()
+): Double {
+    val s1: Double = t1 * v1
+    val s2: Double = t2 * v2
+    val s3: Double = t3 * v3
+    val tH: Double
+    val sH: Double = (s1 + s2 + s3)/2
+    when {
+        sH <= s1 -> tH = sH / v1
+        sH <= s1 + s2 -> tH = t1 + (sH - s1)/v2
+        else -> tH = t1 + t2 + (sH-s1-s2)/v3
+    }
+   return tH
+}
 
 /**
  * Простая (2 балла)
@@ -149,4 +162,13 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
+    when {
+        b < c || d < a -> -1
+        a < c && d < b -> d - c
+        (a < c && b > c && b < d) || (a == c && b == d) -> b - c
+        c < a && b < d -> b - a
+        c < a && d > a && d < b -> d - a
+        else -> 0
+    }
+
