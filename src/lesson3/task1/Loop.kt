@@ -19,7 +19,7 @@ import kotlin.math.sqrt
  */
 fun factorial(n: Int): Double {
     var result = 1.0
-    for (i in 1..n) {
+    for (i in 1 .. n) {
         result = result * i // Please do not fix in master
     }
     return result
@@ -34,7 +34,7 @@ fun isPrime(n: Int): Boolean {
     if (n < 2) return false
     if (n == 2) return true
     if (n % 2 == 0) return false
-    for (m in 3..sqrt(n.toDouble()).toInt() step 2) {
+    for (m in 3 .. sqrt(n.toDouble()).toInt() step 2) {
         if (n % m == 0) return false
     }
     return true
@@ -47,7 +47,7 @@ fun isPrime(n: Int): Boolean {
  */
 fun isPerfect(n: Int): Boolean {
     var sum = 1
-    for (m in 2..n / 2) {
+    for (m in 2 .. n / 2) {
         if (n % m > 0) continue
         sum += m
         if (sum > n) break
@@ -123,16 +123,15 @@ fun collatzSteps(x: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-
 fun lcm(m: Int, n: Int): Int {
-    var s: Int = 0
-    var a: Int = max(m,n)
-    for (i in 1..a) {
-        a++
-        s = i
-        if ((i % m == 0) && (i % n == 0)) break
+    var a: Int = m
+    var b: Int = n
+    val x: Int = m * n
+    while (a != b){
+        if (a > b) a -= b
+        else b -= a
     }
-    return s
+    return x / a
 }
 
 /**
@@ -154,13 +153,14 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
 fun revert(n: Int): Int {
     var v: Int = 0
     var t: Int = n
-    if (t > 0) while (t > 0){
+    if (t > 0) while (t > 0) {
         v += t % 10
         t /= 10
-        v *= 10
+        if (v < 100000000) v *= 10
     }
     else return 0
-    return v / 10
+    return if (v % 10 == 0) v / 10
+    else v
 }
 
 /**
