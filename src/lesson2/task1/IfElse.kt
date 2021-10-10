@@ -138,15 +138,15 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
         x = -1
     }else if(c == b || d == a){
         x = 0
-    }else if(a < c && d < b){
+    }else if(a <= c && d < b){
         x = d - c
-    }else if(a < c && d > b){
+    }else if(a <= c && d > b){
         x = b - c
-    }else if(c < a && d < b){
+    }else if(c < a && d <= b){
         x = d - a
     }else if(c < a && d > b){
         x = b - a
-    }else if(a == c && b == d){
+    }else if(a == c && b == d) {
         x = b - a
     }
     return x
