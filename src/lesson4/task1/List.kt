@@ -10,6 +10,11 @@ import kotlin.math.sqrt
 // Рекомендуемое количество баллов = 8
 // Вместе с предыдущими уроками = 24/33
 
+fun main() {
+    println(roman(30))
+}
+
+
 /**
  * Пример
  *
@@ -99,7 +104,7 @@ fun squares(vararg array: Int) = squares(array.toList()).toTypedArray()
  */
 fun isPalindrome(str: String): Boolean {
     val lowerCase = str.lowercase().filter { it != ' ' }
-    for (i in 0..lowerCase.length / 2) {
+    for (i in 0 .. lowerCase.length / 2) {
         if (lowerCase[i] != lowerCase[lowerCase.length - i - 1]) return false
     }
     return true
@@ -241,7 +246,20 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    val a = listOf("I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M")
+    val b = listOf(1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000)
+    var c = n
+    var i = 12
+    var result = ""
+    while (c > 0) {
+        while (b[i] > c) i--
+        result += a[i]
+        c -= b[i]
+    }
+    return result
+}
+
 
 /**
  * Очень сложная (7 баллов)
@@ -249,5 +267,9 @@ fun roman(n: Int): String = TODO()
  * Записать заданное натуральное число 1..999999 прописью по-русски.
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
- */
-fun russian(n: Int): String = TODO()
+ *
+fun russian(n: Int): String {
+    val a = listOf(1 .. 9, 0)
+
+}
+        */

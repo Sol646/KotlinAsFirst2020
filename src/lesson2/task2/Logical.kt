@@ -6,7 +6,7 @@ import lesson1.task1.sqr
 import lesson2.task1.triangleKind
 
 fun main(){
-    println(daysInMonth(11, 1))
+    println(isNumberHappy(1533))
 }
 /**
  * Пример
@@ -23,12 +23,11 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
 fun isNumberHappy(number: Int): Boolean {
-    val f: Int = number / 1000
-    val s: Int = (number / 100) % 10
-    val t: Int = (number % 100) / 10
-    val fo: Int = number % 10
-    if (f + s == t + fo) return true
-    else return false
+    val f = number / 1000
+    val s = (number / 100) % 10
+    val t = (number % 100) / 10
+    val fo = number % 10
+    return f + s == t + fo
 }
 
 /**
@@ -48,7 +47,7 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
 fun daysInMonth(month: Int, year: Int): Int {
-    if (((year % 4 == 0 && year % 100 != 0 ) || (year % 400 == 0))&& month == 2) return 29
+    if (((year % 4 == 0 && year % 100 != 0 ) || (year % 400 == 0)) && month == 2) return 29
     else when (month) {
         2 -> return 28
         in 1..7 step 2 -> return 31
@@ -80,5 +79,5 @@ fun circleInside(
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =
-    (a <= r && b <= s) || (a <= s && b <= r) || (b <= s && c <= r) || (b <= r && c <= s) || (a <= r && c <= s) || (a <= s && c <= r)
-
+    (a <= r && b <= s) || (a <= s && b <= r) || (b <= s && c <= r) ||
+            (b <= r && c <= s) || (a <= r && c <= s) || (a <= s && c <= r)

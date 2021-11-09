@@ -124,9 +124,9 @@ fun collatzSteps(x: Int): Int = TODO()
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var a: Int = m
-    var b: Int = n
-    val x: Int = m * n
+    var a = m
+    var b = n
+    val x = m * n
     while (a != b){
         if (a > b) a -= b
         else b -= a
@@ -156,7 +156,7 @@ fun revert(n: Int): Int {
     if (t > 0) while (t > 0) {
         v += t % 10
         t /= 10
-        if (v < 100000000) v *= 10
+        if (v < Int.MAX_VALUE) v *= 10
     }
     else return 0
     return if (v % 10 == 0) v / 10

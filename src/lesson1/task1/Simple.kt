@@ -64,10 +64,8 @@ fun main() {
  * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
  */
 fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
-    val s: Int = (hours * 3600) + (minutes * 60) + seconds
-    return s
+    return (hours * 3600) + (minutes * 60) + seconds
 }
-
 /**
  * Тривиальная (1 балл)
  *
@@ -123,9 +121,9 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double {
     val i: Double = initial.toDouble()
-    val first: Double = i + ((i/100) * percent)
-    val second: Double = first + ((first/100) * percent)
-    val third: Double = second + ((second/100) * percent)
+    val first: Double = i + ((i / 100) * percent)
+    val second: Double = first + ((first / 100) * percent)
+    val third: Double = second + ((second / 100) * percent)
     return third
 }
 
