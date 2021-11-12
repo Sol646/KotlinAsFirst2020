@@ -10,10 +10,6 @@ import kotlin.math.sqrt
 // Рекомендуемое количество баллов = 8
 // Вместе с предыдущими уроками = 24/33
 
-fun main() {
-    println(roman(30))
-}
-
 
 /**
  * Пример
@@ -267,9 +263,84 @@ fun roman(n: Int): String {
  * Записать заданное натуральное число 1..999999 прописью по-русски.
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
- *
-fun russian(n: Int): String {
-    val a = listOf(1 .. 9, 0)
-
+ */
+fun main() {
+    println(russian(2003))
 }
-        */
+
+
+fun auxiliary(n: Int): MutableList<String> {
+    val l1 = listOf("один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val l2 = listOf(
+        "десять", "одиннадцать", "двенадцать", "тринадцать",
+        "четырнадцать", "пятнадцать", "шестнадцать",
+        "семнадцать", "восемнадцать", "девятнадцать"
+    )
+    val l3 =
+        listOf(
+            "", "двадцать", "тридцать",
+            "сорок", "пятьдесят", "шестьдесят",
+            "семьдесят", "восемьдесят", "девяносто"
+        )
+    val l4 = listOf(
+        "сто", "двести", "триста",
+        "четыреста", "пятьсот", "шестьсот",
+        "семьсот", "восемьсот", "девятьсот"
+    )
+    var tN = n
+    val result = mutableListOf<String>()
+    var k = 0
+    while (tN > 0) {
+        val a = tN % 10
+        if ((tN / 10) % 10 == 1 && k == 0) {
+            result.add(l2[a])
+            tN /= 100
+            k += 2
+        } else {
+            if (a == 0) {
+                tN /= 10
+                k += 1
+            } else {
+                k += 1
+                when (k) {
+                    1 -> result.add(l1[a - 1])
+                    2 -> result.add(l3[a - 1])
+                    3 -> result.add(l4[a - 1])
+                }
+                tN /= 10
+            }
+        }
+    }
+    result.remove("")
+    return result.asReversed()
+}
+
+fun russian(n: Int): String {
+    var result = ""
+    val a = auxiliary(n / 1000)
+    val b = auxiliary(n % 1000)
+    var c = mutableListOf<String>()
+    when {
+        a.isNotEmpty() && (n / 1000) % 100 in 10 .. 19 -> c.add("тысяч")
+        a.isNotEmpty() && (n / 1000) % 10 in 5 .. 9 -> c.add("тысяч")
+        a.isNotEmpty() && (n / 1000) % 10 == 0 -> c.add("тысяч")
+        a.isNotEmpty() && (n / 1000) % 10 in 3 .. 4 -> c.add("тысячи")
+    }
+    if (a.isNotEmpty() && a.last() == "один") {
+        a.remove(a.last())
+        a.add("одна тысяча")
+    }
+    if (a.isNotEmpty() && a.last() == "два") {
+        a.remove(a.last())
+        a.add("две тысячи")
+    }
+
+    val p = a + c + b
+    for (i in p.indices){
+        result += p[i]
+        if (i < p.size - 1){
+            result += " "
+        }
+    }
+    return result
+} // Это было тяжеловато :(
