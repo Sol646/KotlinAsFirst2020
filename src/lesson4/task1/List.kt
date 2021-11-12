@@ -334,7 +334,6 @@ fun russian(n: Int): String {
         a.remove(a.last())
         a.add("две тысячи")
     }
-
     val p = a + c + b
     for (i in p.indices){
         result += p[i]
