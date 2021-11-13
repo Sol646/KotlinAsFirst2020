@@ -270,7 +270,11 @@ fun main() {
 
 
 fun auxiliary(n: Int): MutableList<String> {
-    val l1 = listOf("один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val l1 = listOf(
+        "один", "два", "три",
+        "четыре", "пять", "шесть",
+        "семь", "восемь", "девять"
+    )
     val l2 = listOf(
         "десять", "одиннадцать", "двенадцать", "тринадцать",
         "четырнадцать", "пятнадцать", "шестнадцать",
@@ -319,25 +323,25 @@ fun russian(n: Int): String {
     var result = ""
     val a = auxiliary(n / 1000)
     val b = auxiliary(n % 1000)
-    var c = mutableListOf<String>()
+    val c = mutableListOf<String>()
     when {
         a.isNotEmpty() && (n / 1000) % 100 in 10 .. 19 -> c.add("тысяч")
         a.isNotEmpty() && (n / 1000) % 10 in 5 .. 9 -> c.add("тысяч")
         a.isNotEmpty() && (n / 1000) % 10 == 0 -> c.add("тысяч")
         a.isNotEmpty() && (n / 1000) % 10 in 3 .. 4 -> c.add("тысячи")
-    }
-    if (a.isNotEmpty() && a.last() == "один") {
-        a.remove(a.last())
-        a.add("одна тысяча")
-    }
-    if (a.isNotEmpty() && a.last() == "два") {
-        a.remove(a.last())
-        a.add("две тысячи")
+        a.isNotEmpty() && a.last() == "один" -> {
+            a.remove(a.last())
+            a.add("одна тысяча")
+        }
+        a.isNotEmpty() && a.last() == "два" -> {
+            a.remove(a.last())
+            a.add("две тысячи")
+        }
     }
     val p = a + c + b
-    for (i in p.indices){
+    for (i in p.indices) {
         result += p[i]
-        if (i < p.size - 1){
+        if (i < p.size - 1) {
             result += " "
         }
     }
