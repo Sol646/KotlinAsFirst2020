@@ -3,9 +3,6 @@
 package lesson5.task1
 
 
-import ru.spbstu.wheels.getEntry
-import ru.spbstu.wheels.sorted
-
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -282,26 +279,16 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 
+
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    var r1 = 0
-    var r2 = 0
-    if (list.isNotEmpty()) for (item in list) {
-        var counter = 0
-        var a = 0
-        while (a < (list.size - 1)) {
-            if (item != list[a]) counter = item + list[a]
-            if (counter == number) {
-                r1 = list.indexOf(item)
-                r2 = list.indexOf(a + 1)
-                break
-            } else {
-                a++
-                counter = 0
+    var x = Pair(-1, -1)
+    for (i in list.indices)
+        for (j in i + 1 until list.size) {
+            if (list[i] + list[j] == number) {
+                x = Pair(i, j)
             }
         }
-    } else return Pair(-1, -1)
-    return if (r1 == 0 && r2 == 0) Pair(-1, -1)
-    else Pair(r1, r2).sorted()
+    return x
 }
 
 /**
