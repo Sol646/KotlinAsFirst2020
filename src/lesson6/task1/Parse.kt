@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import java.lang.NumberFormatException
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -16,9 +18,13 @@ package lesson6.task1
 fun timeStrToSeconds(str: String): Int {
     val parts = str.split(":")
     var result = 0
-    for (part in parts) {
-        val number = part.toInt()
-        result = result * 60 + number
+    try {
+        for (part in parts) {
+            val number = part.toInt()
+            result = result * 60 + number
+        }
+    } catch (e: NumberFormatException) {
+        return -1
     }
     return result
 }
@@ -29,7 +35,7 @@ fun timeStrToSeconds(str: String): Int {
  * Дано число n от 0 до 99.
  * Вернуть его же в виде двухсимвольной строки, от "00" до "99"
  */
-fun twoDigitStr(n: Int) = if (n in 0..9) "0$n" else "$n"
+fun twoDigitStr(n: Int) = if (n in 0 .. 9) "0$n" else "$n"
 
 /**
  * Пример
@@ -48,18 +54,7 @@ fun timeSecondsToStr(seconds: Int): String {
  * Пример: консольный ввод
  */
 fun main() {
-    println("Введите время в формате ЧЧ:ММ:СС")
-    val line = readLine()
-    if (line != null) {
-        val seconds = timeStrToSeconds(line)
-        if (seconds == -1) {
-            println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
-        } else {
-            println("Прошло секунд с начала суток: $seconds")
-        }
-    } else {
-        println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
-    }
+
 }
 
 
@@ -114,7 +109,21 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    var max = -1
+    var a = jumps
+    a = Regex("[-%]").replace(jumps, "")
+    a = Regex(" +").replace(a, " ")
+    val parts = a.split(" ")
+    try {
+        for (i in parts) {
+            if (i.toInt() > max) max = i.toInt()
+        }
+    } catch (e: NumberFormatException) {
+        return -1
+    }
+    return max
+}
 
 /**
  * Сложная (6 баллов)
@@ -127,7 +136,23 @@ fun bestLongJump(jumps: String): Int = TODO()
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    var max = 0
+    var a = jumps
+    a = Regex("[-%]").replace(a, "")
+    a = Regex("[0-9]{3} (?![+\\w])").replace(a, "")
+    a = a.replace(" ", "")
+    val parts = Regex("[+]").split(a).toMutableList()
+    parts.remove("")
+    try {
+        for (i in parts) {
+            if (i.toInt() > max) max = i.toInt()
+        }
+    } catch (e: NumberFormatException) {
+        return -1
+    }
+    return max
+}
 
 /**
  * Сложная (6 баллов)
