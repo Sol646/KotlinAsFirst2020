@@ -246,11 +246,11 @@ fun roman(n: Int): String {
     val a = listOf("I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M")
     val b = listOf(1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000)
     var c = n
-    var i = 12
+    var i = b.size - 1
     var result = ""
     while (c > 0) {
         while (b[i] > c) i--
-        result += a[i]
+        result += buildString { append(a[i]) } // result += a[i]
         c -= b[i]
     }
     return result
@@ -320,7 +320,6 @@ fun auxiliary(n: Int): MutableList<String> {
 }
 
 fun russian(n: Int): String {
-    var result = ""
     val a = auxiliary(n / 1000)
     val b = auxiliary(n % 1000)
     val c = mutableListOf<String>()
@@ -338,12 +337,6 @@ fun russian(n: Int): String {
             a.add("две тысячи")
         }
     }
-    val p = a + c + b
-    for (i in p.indices) {
-        result += p[i]
-        if (i < p.size - 1) {
-            result += " "
-        }
-    }
-    return result
-} // Это было тяжеловато :(
+    val result = a + c + b
+    return result.joinToString(separator = " ") // Удобно
+}

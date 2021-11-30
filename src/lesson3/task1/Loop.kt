@@ -150,19 +150,19 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun main(){
+fun main() {
     println(revert(184604062))
 }
 
 fun revert(n: Int): Int {
-    var v: Int = 0
-    var t: Int = n
-    if (t > 0) while (t > 0) {
+    var v = 0
+    var t = n
+    if (t < 0) return 0
+    while (t > 0) {
         v += t % 10
         t /= 10
-        if (v < 100000000) v *= 10
+        if (v < Int.MAX_VALUE / 10) v *= 10
     }
-    else return 0
     return if (v % 10 == 0) v / 10
     else v
 }

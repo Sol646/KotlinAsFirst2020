@@ -5,7 +5,7 @@ package lesson2.task2
 import lesson1.task1.sqr
 import lesson2.task1.triangleKind
 
-fun main(){
+fun main() {
     println(isNumberHappy(1533))
 }
 /**
@@ -47,13 +47,14 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
 fun daysInMonth(month: Int, year: Int): Int {
-    if (((year % 4 == 0 && year % 100 != 0 ) || (year % 400 == 0)) && month == 2) return 29
-    else when (month) {
-        2 -> return 28
-        in 1..7 step 2 -> return 31
-        in 8..12 step 2 -> return 31
-        4, 6, 9, 10, 11 -> return 30
-        else -> return 0
+    return when {
+        ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) && month == 2 -> 29
+        month == 2 -> 28
+        month in 1 .. 7 step 2 -> 31
+        month in 8 .. 12 step 2 -> 31
+        month in 4 .. 6 step 2 -> 30
+        month in 9 .. 11 -> 30
+        else -> 0
     }
 }
 
