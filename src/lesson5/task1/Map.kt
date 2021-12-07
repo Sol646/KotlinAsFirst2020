@@ -2,6 +2,8 @@
 
 package lesson5.task1
 
+import ru.spbstu.wheels.getEntry
+import java.lang.Math.max
 import java.util.*
 
 
@@ -289,13 +291,7 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  */
 
 
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    if (list.isNotEmpty()) for (i in list) {
-        val a = number - i
-        if (a in list && a != i) return Pair(list.indexOf(i), list.indexOf(a))
-    }
-    return -1 to -1
-}
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
 /**
  * Очень сложная (8 баллов)
  *

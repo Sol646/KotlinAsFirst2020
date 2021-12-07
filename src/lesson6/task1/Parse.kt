@@ -105,26 +105,29 @@ fun flattenPhoneNumber(phone: String): String = TODO()
 fun bestLongJump(jumps: String): Int {
     var max = -1
     var a = jumps
-    if (a.contains(Regex("[~!@#$^&*+]"))) return max
-    a = Regex("[-%a-zA-Z]").replace(a, "")
+    if (a.contains(Regex("""[\(\)\[\]\{\}<>;:+,.'"a-zA-Z~!@#$^&*?\\]"""))) return max
+    a = Regex("[-%]").replace(a, "")
     a = Regex("""\s+""").replace(a, " ")
-    var parts = a.split(" ")
+    val parts = a.split(" ")
     if (parts.isNotEmpty()) for (i in parts) {
         if (i != "") if (i.toInt() > max) max = i.toInt()
     }
     return max
 }
 fun main() {
-    var a = "226 +"
-    a = Regex("[-% ]").replace(a, "")
-    a = Regex("""[0-9]{3} (?![+\w])""").replace(a, "")
-    val parts = Regex("[+]").split(a).toMutableList()
-    parts.remove("")
-    println(parts)
+    println(bestLongJump("kotlin.Unit"))
 }
 
 /**
  * Сложная (6 баллов)
+ *
+ * var a = "0 kotlin.Unit"
+a = Regex("""[a-zA-Z'"\.~!@#$^&*?\\]""").replace(a, "")
+a = Regex("""[0-9]{3} (?![+\w])""").replace(a, "")
+val parts = Regex("[+]").split(a).toMutableList()
+parts.remove("")
+println(parts)
+ *
  *
  * Результаты спортсмена на соревнованиях в прыжках в высоту представлены строкой вида
  * "220 + 224 %+ 228 %- 230 + 232 %%- 234 %".
@@ -137,8 +140,8 @@ fun main() {
 fun bestHighJump(jumps: String): Int {
     var max = -1
     var a = jumps
-    if (a.contains(Regex("[~!@#$^&*?]"))) return max
-    a = Regex("[-%a-zA-Z]").replace(a, "")
+    if (a.contains(Regex("""[\(\)\[\]\{\}<>;:,.'"a-zA-Z~!@#$^&*?\\]"""))) return max
+    a = Regex("[-%]").replace(a, "")
     a = Regex("""[0-9]{3} (?![+\w])""").replace(a, "")
     a = a.replace(" ", "")
     val parts = Regex("[+]").split(a).toMutableList()

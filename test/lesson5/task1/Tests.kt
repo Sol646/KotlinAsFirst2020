@@ -324,6 +324,10 @@ class Tests {
             Pair(3, 5),
             findSumOfTwo(listOf(0, 1, 2, 3, 4, 5), 8)
         )
+        assertEquals(
+            Pair(0, 1),
+            findSumOfTwo(listOf(0, 0), 0)
+        )
     }
 
     @Test
