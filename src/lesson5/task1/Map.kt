@@ -292,6 +292,8 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
 
 
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+
+
 /**
  * Очень сложная (8 баллов)
  *
