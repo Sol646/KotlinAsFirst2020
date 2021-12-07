@@ -247,13 +247,13 @@ fun roman(n: Int): String {
     val b = listOf(1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000)
     var c = n
     var i = b.size - 1
-    var result = ""
+    val result = mutableListOf<String>()
     while (c > 0) {
         while (b[i] > c) i--
-        result += buildString { append(a[i]) } // result += a[i]
+        result += a[i]
         c -= b[i]
     }
-    return result
+    return result.joinToString(separator = "")
 }
 
 
@@ -265,7 +265,7 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun main() {
-    println(russian(2003))
+    println(roman(3000))
 }
 
 

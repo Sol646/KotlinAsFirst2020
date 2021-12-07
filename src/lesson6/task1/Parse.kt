@@ -50,13 +50,6 @@ fun timeSecondsToStr(seconds: Int): String {
     return String.format("%02d:%02d:%02d", hour, minute, second)
 }
 
-/**
- * Пример: консольный ввод
- */
-fun main() {
-
-}
-
 
 /**
  * Средняя (4 балла)
@@ -112,17 +105,22 @@ fun flattenPhoneNumber(phone: String): String = TODO()
 fun bestLongJump(jumps: String): Int {
     var max = -1
     var a = jumps
-    a = Regex("[-%]").replace(jumps, "")
-    a = Regex(" +").replace(a, " ")
-    val parts = a.split(" ")
-    try {
-        for (i in parts) {
-            if (i.toInt() > max) max = i.toInt()
-        }
-    } catch (e: NumberFormatException) {
-        return -1
+    if (a.contains(Regex("[~!@#$^&*+]"))) return max
+    a = Regex("[-%a-zA-Z]").replace(a, "")
+    a = Regex("""\s+""").replace(a, " ")
+    var parts = a.split(" ")
+    if (parts.isNotEmpty()) for (i in parts) {
+        if (i != "") if (i.toInt() > max) max = i.toInt()
     }
     return max
+}
+fun main() {
+    var a = "226 +"
+    a = Regex("[-% ]").replace(a, "")
+    a = Regex("""[0-9]{3} (?![+\w])""").replace(a, "")
+    val parts = Regex("[+]").split(a).toMutableList()
+    parts.remove("")
+    println(parts)
 }
 
 /**
@@ -137,19 +135,15 @@ fun bestLongJump(jumps: String): Int {
  * вернуть -1.
  */
 fun bestHighJump(jumps: String): Int {
-    var max = 0
+    var max = -1
     var a = jumps
-    a = Regex("[-%]").replace(a, "")
-    a = Regex("[0-9]{3} (?![+\\w])").replace(a, "")
+    if (a.contains(Regex("[~!@#$^&*?]"))) return max
+    a = Regex("[-%a-zA-Z]").replace(a, "")
+    a = Regex("""[0-9]{3} (?![+\w])""").replace(a, "")
     a = a.replace(" ", "")
     val parts = Regex("[+]").split(a).toMutableList()
-    parts.remove("")
-    try {
-        for (i in parts) {
-            if (i.toInt() > max) max = i.toInt()
-        }
-    } catch (e: NumberFormatException) {
-        return -1
+    if (parts.isNotEmpty()) for (i in parts) {
+        if (i != "") if (i.toInt() > max) max = i.toInt()
     }
     return max
 }
