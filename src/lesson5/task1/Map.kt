@@ -2,8 +2,7 @@
 
 package lesson5.task1
 
-import ru.spbstu.wheels.getEntry
-import java.lang.Math.max
+import ru.spbstu.wheels.sorted
 import java.util.*
 
 
@@ -234,7 +233,21 @@ fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean = TODO()
+
+fun main() {
+    println(hasAnagrams(listOf("рот", "свет", "код", "дверь")))
+}
+
+fun hasAnagrams(words: List<String>): Boolean {
+    val list = emptyList<String>().toMutableList()
+    for (i in words) {
+        list.add(i.split("").sorted().joinToString(""))
+    }
+    for (i in list.indices) {
+        if (list[i] in list && i != list.indexOf(list[i])) return true
+    }
+    return false
+}
 
 /**
  * Сложная (5 баллов)
@@ -289,7 +302,6 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-
 
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
 

@@ -101,12 +101,17 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * число соответствует удачному прыжку, - пропущенной попытке, % заступу.
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
+ *
+ * [\(\)\[\]\{\}<>;:+,.'"a-zA-Z~!@#$^&*?\\]
+ * [^-%]
+ *
  */
 fun bestLongJump(jumps: String): Int {
     var max = -1
     var a = jumps
-    if (a.contains(Regex("""[\(\)\[\]\{\}<>;:+,.'"a-zA-Z~!@#$^&*?\\]"""))) return max
-    a = Regex("[-%]").replace(a, "")
+    if (a.contains(Regex("""[^-%0-9\s]|\d+%|\d+-"""))) return max
+    // if (a.contains(Regex("""[^-%0-9]|\d+%|\d+-"""))) return max
+    a = Regex("[-%]").replace(a, " ")
     a = Regex("""\s+""").replace(a, " ")
     val parts = a.split(" ")
     if (parts.isNotEmpty()) for (i in parts) {
@@ -115,7 +120,7 @@ fun bestLongJump(jumps: String): Int {
     return max
 }
 fun main() {
-    println(bestLongJump("kotlin.Unit"))
+    println(bestHighJump("123%123"))
 }
 
 /**
@@ -140,7 +145,7 @@ println(parts)
 fun bestHighJump(jumps: String): Int {
     var max = -1
     var a = jumps
-    if (a.contains(Regex("""[\(\)\[\]\{\}<>;:,.'"a-zA-Z~!@#$^&*?\\]"""))) return max
+    if (a.contains(Regex("""[^-%+0-9\s]|\d+%|\d+-"""))) return max
     a = Regex("[-%]").replace(a, "")
     a = Regex("""[0-9]{3} (?![+\w])""").replace(a, "")
     a = a.replace(" ", "")
