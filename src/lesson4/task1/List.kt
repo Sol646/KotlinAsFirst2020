@@ -308,7 +308,7 @@ fun russian(n: Int): String {
                     result.add(0, listOfWords[num % 100 - 1])
                     flag++
                     num /= 10
-                } else if (num % 100 != 0) result.add(0, listOfWords[num % 10 - 1])
+                } else if (num % 10 != 0) result.add(0, listOfWords[num % 10 - 1])
             }
             1 -> if (num % 10 !in 0..1) result.add(0, listOfWords1[num % 10 - 2])
             2 -> if (num % 10 != 0) result.add(0, listOfWords2[num % 10 - 1])
