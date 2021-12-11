@@ -127,8 +127,12 @@ fun abs(v: List<Double>): Double = TODO()
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = TODO()
-
+fun mean(list: List<Double>): Double {
+    var average = 0.0
+    for (element in list) average += element
+    return if (list.isEmpty()) average
+    else average / list.size
+}
 /**
  * Средняя (3 балла)
  *
@@ -137,7 +141,11 @@ fun mean(list: List<Double>): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> = TODO()
+fun center(list: MutableList<Double>): MutableList<Double> {
+    val average = mean(list)
+    for (i in list.indices) list[i] -= average
+    return list
+}
 
 /**
  * Средняя (3 балла)
@@ -168,7 +176,14 @@ fun polynom(p: List<Int>, x: Int): Int = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
+fun accumulate(list: MutableList<Int>): MutableList<Int> {
+    var sum = 0
+    for (i in list.indices) {
+        sum += list[i]
+        list[i] = sum
+    }
+    return list
+}
 
 /**
  * Средняя (3 балла)
@@ -241,7 +256,21 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    var num = n
+    var romanNumber = ""
+    val arabicToRoman = mapOf(
+        1000 to "M", 900 to "CM", 500 to "D", 400 to "CD", 100 to "C", 90 to "XC",
+        50 to "L", 40 to "XL", 10 to "X", 9 to "IX", 5 to "V", 4 to "IV", 1 to "I"
+    )
+    for ((arabicNum, romanNum) in arabicToRoman) {
+        while (num >= arabicNum) {
+            num -= arabicNum
+            romanNumber += romanNum
+        }
+    }
+    return romanNumber
+}
 
 /**
  * Очень сложная (7 баллов)
@@ -250,4 +279,61 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    if (n == 0) return "ноль"
+    val result: MutableList<String> = mutableListOf()
+    var flag = 0
+    var num = n
+    val listOfWords = listOf(
+        "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь",
+        "девять", "десять", "одиннадцать", "двенадцать", "тринадцать",
+        "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать",
+        "девятнадцать"
+    )
+    val listOfWords1 = listOf(
+        "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят",
+        "восемьдесят", "девяносто"
+    )
+    val listOfWords2 = listOf(
+        "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот",
+        "восемьсот", "девятьсот"
+    )
+    val listOfWords3 = listOf(
+        "тысяч", "одна тысяча", "две тысячи", "три тысячи", "четыре тысячи"
+    )
+    while (num > 0) {
+        when (flag) {
+            0 -> {
+                if (num % 100 in 10..19) {
+                    result.add(0, listOfWords[num % 100 - 1])
+                    flag++
+                    num /= 10
+                } else if (num % 100 != 0) result.add(0, listOfWords[num % 10 - 1])
+            }
+            1 -> if (num % 10 !in 0..1) result.add(0, listOfWords1[num % 10 - 2])
+            2 -> if (num % 10 != 0) result.add(0, listOfWords2[num % 10 - 1])
+            3 -> if (num % 100 in 10..19) {
+                result.add(0, listOfWords3[0])
+                result.add(0, listOfWords[num % 100 - 1])
+                flag++
+                num /= 10
+            } else {
+                if (num % 10 in 5..9) {
+                    result.add(0, listOfWords3[0])
+                    result.add(0, listOfWords[num % 10 - 1])
+                } else if (num % 10 != 0) result.add(0, listOfWords3[num % 10])
+            }
+            4 -> if (num % 10 !in 0..1) {
+                if (n / 1000 % 10 == 0) result.add(0, listOfWords3[0])
+                result.add(0, listOfWords1[num % 10 - 2])
+            }
+            5 -> {
+                if (n / 10000 % 10 == 0 && n / 1000 % 10 == 0) result.add(0, listOfWords3[0])
+                result.add(0, listOfWords2[num % 10 - 1])
+            }
+        }
+        num /= 10
+        flag++
+    }
+    return result.joinToString(separator = " ")
+}
