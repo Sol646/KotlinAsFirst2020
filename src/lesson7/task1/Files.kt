@@ -104,7 +104,7 @@ fun sibilants(inputName: String, outputName: String) {
     val posMis = listOf('Ч', 'Щ', 'Ж', 'Ш', 'ч', 'щ', 'ж', 'ш')
     for (line in File(inputName).readLines()) {
         val corLine = StringBuilder(line)
-        for (i in corLine.indices) {
+        for (i in 0..corLine.length -2) {
             if (posMis.contains(corLine[i]) && cor.containsKey(corLine[i + 1]))
                 corLine[i + 1] = cor[line[i + 1]]!!
         }
