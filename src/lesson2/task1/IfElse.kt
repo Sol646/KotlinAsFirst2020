@@ -134,23 +134,15 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     var x = 0
-    if(c > b && d > b || c < a && d < a){
-        x = -1
-    }else if(c == b || d == a){
-        x = 0
-    }else if(a <= c && d <= b){
-        x = d - c
-    }else if(a <= c && d >= b){
-        x = b - c
-    }else if(c <= a && d <= b){
-        x = d - a
-    }else if(c < a && d > b){
-        x = b - a
-    }else if(a == c && b == d) {
-        x = b - a
+    when{
+        (c > b && d > b || c < a && d < a) -> x = -1
+        (c == b || d == a) -> x = 0
+        (a <= c && d <= b) -> x = d - c
+        (a <= c && d >= b) -> x = b - c
+        (c <= a && d <= b) -> x = d - a
+        (c < a && d > b) -> x = b - a
+        (a == c && b == d) -> x = b - a
     }
     return x
 }
-
-
 
