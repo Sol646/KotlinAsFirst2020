@@ -228,27 +228,34 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
     val z = dictionary.values.joinToString("s2ta1t1at1a").lowercase().split("s2ta1t1at1a")
     val y = dictionary.keys.joinToString("s2ta1t1at1a").lowercase().split("s2ta1t1at1a")
     val x = mutableMapOf<String, String>()
+    println(dictionary.isNotEmpty())
     for (i in y.indices) x[y[i]] = z[i]
     val writer = File(outputName).bufferedWriter()
-    for (line in File(inputName).readLines()) {
-        var c = 0
-        if (line[0].isUpperCase()) c = 1
-        val str = line.lowercase().split("").toMutableList()
-        for (i in str.indices) {
-            if (str[i] in x) str[i] = x.getValue(str[i])
+    when (dictionary.isNotEmpty()) {
+        true -> for (line in File(inputName).readLines()) {
+            var c = 0
+            if (line[0].isUpperCase()) c = 1
+            val str = line.lowercase().split("").toMutableList()
+            for (i in str.indices) {
+                if (str[i] in x) str[i] = x.getValue(str[i])
+            }
+            when {
+                c == 1 -> {
+                    writer.write(
+                        str.joinToString("")
+                            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() })
+                    writer.newLine()
+                }
+                c == 0 -> {
+                    writer.write(str.joinToString(""))
+                    writer.newLine()
+                }
+                line.isEmpty() -> writer.newLine()
+            }
         }
-        when {
-            c == 1 -> {
-                writer.write(
-                    str.joinToString("")
-                        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() })
-                writer.newLine()
-            }
-            c == 0 -> {
-                writer.write(str.joinToString(""))
-                writer.newLine()
-            }
-            line.isEmpty() -> writer.newLine()
+        false -> for (line in File(inputName).readLines()) {
+            writer.write(line)
+            writer.newLine()
         }
     }
     writer.close()
