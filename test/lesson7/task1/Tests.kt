@@ -229,11 +229,11 @@ Basic, Ruby, Swift.
         assertFileContent("temp.txt", "?dv,q+bba{")
         File("temp.txt").delete()
         transliterate(
-            "C:\\Users\\Игорь\\Desktop\\aS.txt",
-            mapOf(),
+            "C:\\Users\\Игорь\\Desktop\\aF.txt",
+            mapOf('a' to ""),
             "temp.txt"
         )
-        assertFileContent("temp.txt", "aS")
+        assertFileContent("temp.txt", "F")
         File("temp.txt").delete()
     }
 
