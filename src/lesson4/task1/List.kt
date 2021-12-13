@@ -258,18 +258,19 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  */
 fun roman(n: Int): String {
     var num = n
-    var romanNumber = ""
     val arabicToRoman = mapOf(
         1000 to "M", 900 to "CM", 500 to "D", 400 to "CD", 100 to "C", 90 to "XC",
         50 to "L", 40 to "XL", 10 to "X", 9 to "IX", 5 to "V", 4 to "IV", 1 to "I"
     )
-    for ((arabicNum, romanNum) in arabicToRoman) {
-        while (num >= arabicNum) {
-            num -= arabicNum
-            romanNumber += romanNum
+    val result = buildString {
+        for ((arabicNum, romanNum) in arabicToRoman) {
+            while (num >= arabicNum) {
+                num -= arabicNum
+                append(romanNum)
+            }
         }
     }
-    return romanNumber
+    return result
 }
 
 /**
@@ -305,35 +306,37 @@ fun russian(n: Int): String {
         when (flag) {
             0 -> {
                 if (num % 100 in 10..19) {
-                    result.add(0, listOfWords[num % 100 - 1])
+                    result.add(listOfWords[num % 100 - 1])
                     flag++
                     num /= 10
-                } else if (num % 10 != 0) result.add(0, listOfWords[num % 10 - 1])
+                } else if (num % 10 != 0) result.add(listOfWords[num % 10 - 1])
             }
-            1 -> if (num % 10 !in 0..1) result.add(0, listOfWords1[num % 10 - 2])
-            2 -> if (num % 10 != 0) result.add(0, listOfWords2[num % 10 - 1])
+            1 -> if (num % 10 !in 0..1) result.add(listOfWords1[num % 10 - 2])
+            2 -> if (num % 10 != 0) result.add(listOfWords2[num % 10 - 1])
             3 -> if (num % 100 in 10..19) {
-                result.add(0, listOfWords3[0])
-                result.add(0, listOfWords[num % 100 - 1])
+                result.add(listOfWords3[0])
+                result.add(listOfWords[num % 100 - 1])
                 flag++
                 num /= 10
             } else {
                 if (num % 10 in 5..9) {
-                    result.add(0, listOfWords3[0])
-                    result.add(0, listOfWords[num % 10 - 1])
-                } else if (num % 10 != 0) result.add(0, listOfWords3[num % 10])
+                    result.add(listOfWords3[0])
+                    result.add(listOfWords[num % 10 - 1])
+                } else if (num % 10 != 0) result.add(listOfWords3[num % 10])
             }
             4 -> if (num % 10 !in 0..1) {
-                if (n / 1000 % 10 == 0) result.add(0, listOfWords3[0])
-                result.add(0, listOfWords1[num % 10 - 2])
+                if (n / 1000 % 10 == 0) result.add(listOfWords3[0])
+                result.add(listOfWords1[num % 10 - 2])
             }
             5 -> {
-                if (n / 10000 % 10 == 0 && n / 1000 % 10 == 0) result.add(0, listOfWords3[0])
-                result.add(0, listOfWords2[num % 10 - 1])
+                if (n / 10000 % 10 == 0 && n / 1000 % 10 == 0) result.add(listOfWords3[0])
+                result.add(listOfWords2[num % 10 - 1])
             }
         }
         num /= 10
         flag++
     }
-    return result.joinToString(separator = " ")
+    val reverseResult: MutableList<String> = mutableListOf()
+    for (idx in result.size - 1 downTo 0) reverseResult.add(result[idx])
+    return reverseResult.joinToString(separator = " ")
 }

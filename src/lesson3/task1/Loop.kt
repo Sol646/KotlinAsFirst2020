@@ -97,13 +97,10 @@ fun fib(n: Int): Int = TODO()
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var del = 2
-    var i = 0
-    while (i < 1){
-        if (n % del != 0)del += 1
-        else i++
+    for (idx in 2..sqrt(n.toDouble()).toInt()) {
+        if (n % idx == 0) return idx
     }
-    return del
+    return n
 }
 
 /**
@@ -147,15 +144,18 @@ fun collatzSteps(x: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int {
-    var firNum = m
-    var secNum = n
+fun gcd(a: Int, b: Int): Int {
+    var firNum = a
+    var secNum = b
     while ((firNum != 0) && (secNum != 0)) {
         if (firNum > secNum) firNum %= secNum
         else secNum %= firNum
     }
-    return m / (firNum + secNum) * n
+    return a / (firNum + secNum) * b
 }
+
+
+fun lcm(m: Int, n: Int): Int = gcd(m, n)
 
 /**
  * Средняя (3 балла)
