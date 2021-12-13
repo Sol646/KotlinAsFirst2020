@@ -221,6 +221,13 @@ Basic, Ruby, Swift.
         )
         assertFileContent("temp.txt", "Zzdrавствуy,\nmyyr!!!")
         File("temp.txt").delete()
+        transliterate(
+            "C:\\Users\\Игорь\\Desktop\\a.txt",
+            mapOf('C' to "A Ro$0-8Bf", 'k' to "FS^}xfbRD>", '~' to "@B2{3*", 'a' to "?DV,Q+BBA{", ';' to " jX[:N8BgP"),
+            "temp.txt"
+        )
+        assertFileContent("temp.txt", "?dv,q+bba{")
+        File("temp.txt").delete()
     }
 
     @Test

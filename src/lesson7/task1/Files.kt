@@ -3,10 +3,8 @@
 package lesson7.task1
 
 
-import ru.spbstu.wheels.joinToString
 import java.io.File
 import java.util.*
-import javax.lang.model.element.NestingKind
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -227,8 +225,8 @@ fun top20Words(inputName: String): Map<String, Int> = TODO()
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: String) {
-    val z = dictionary.values.joinToString(" ").lowercase().split(" ")
-    val y = dictionary.keys.joinToString(" ").lowercase().split(" ")
+    val z = dictionary.values.joinToString("s2ta1t1at1a").lowercase().split("s2ta1t1at1a")
+    val y = dictionary.keys.joinToString("s2ta1t1at1a").lowercase().split("s2ta1t1at1a")
     val x = mutableMapOf<String, String>()
     for (i in y.indices) x[y[i]] = z[i]
     val writer = File(outputName).bufferedWriter()
@@ -254,6 +252,10 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
         }
     }
     writer.close()
+}
+
+fun main() {
+
 }
 
 /**
