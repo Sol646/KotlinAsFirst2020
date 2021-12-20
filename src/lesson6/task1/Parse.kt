@@ -101,16 +101,11 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * число соответствует удачному прыжку, - пропущенной попытке, % заступу.
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
- *
- * [\(\)\[\]\{\}<>;:+,.'"a-zA-Z~!@#$^&*?\\]
- * [^-%]
- *
  */
 fun bestLongJump(jumps: String): Int {
     var max = -1
     var a = jumps
-    if (a.contains(Regex("""[^-%0-9\s]|\d+%|\d+-"""))) return max
-    // if (a.contains(Regex("""[^-%0-9]|\d+%|\d+-"""))) return max
+    if (a.contains(Regex("""[^-%0-9\s]|\d+(?=[%-])|(?<=[%-])\d+"""))) return max
     a = Regex("[-%]").replace(a, " ")
     a = Regex("""\s+""").replace(a, " ")
     val parts = a.split(" ")
@@ -119,20 +114,9 @@ fun bestLongJump(jumps: String): Int {
     }
     return max
 }
-fun main() {
-    println(bestHighJump("123%123"))
-}
 
 /**
  * Сложная (6 баллов)
- *
- * var a = "0 kotlin.Unit"
-a = Regex("""[a-zA-Z'"\.~!@#$^&*?\\]""").replace(a, "")
-a = Regex("""[0-9]{3} (?![+\w])""").replace(a, "")
-val parts = Regex("[+]").split(a).toMutableList()
-parts.remove("")
-println(parts)
- *
  *
  * Результаты спортсмена на соревнованиях в прыжках в высоту представлены строкой вида
  * "220 + 224 %+ 228 %- 230 + 232 %%- 234 %".
@@ -145,9 +129,9 @@ println(parts)
 fun bestHighJump(jumps: String): Int {
     var max = -1
     var a = jumps
-    if (a.contains(Regex("""[^-%+0-9\s]|\d+%|\d+-"""))) return max
+    if (a.contains(Regex("""[^-%+0-9\s]|\d+(?=[%+-])|(?<=[%+-])\d+"""))) return max
     a = Regex("[-%]").replace(a, "")
-    a = Regex("""[0-9]{3} (?![+\w])""").replace(a, "")
+    a = Regex("""\d+ (?![+\w])""").replace(a, "")
     a = a.replace(" ", "")
     val parts = Regex("[+]").split(a).toMutableList()
     if (parts.isNotEmpty()) for (i in parts) {
