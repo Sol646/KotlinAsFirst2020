@@ -147,7 +147,20 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    var theLongestLine = ""
+    val writer = File(outputName).bufferedWriter()
+    val allLines = File(inputName).readLines()
+    for (line in allLines)
+        if (theLongestLine.length < line.trim().length)
+            theLongestLine = line.trim()
+    for (line in allLines) {
+        val newLine = StringBuilder(line.trim())
+        for (i in 0 until (theLongestLine.length - newLine.length) / 2)
+            newLine.insert(0, " ")
+        writer.write(newLine.toString())
+        writer.newLine()
+    }
+    writer.close()
 }
 
 /**
