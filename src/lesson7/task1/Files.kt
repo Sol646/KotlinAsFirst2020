@@ -534,3 +534,48 @@ fun work2(inputName: String): String {
     }
     return "${b.first}, ${b.second}"
 }
+
+
+fun myFun(inputName: String): String {
+    val table = mutableListOf<Pair<String, MutableList<Char>>>()
+    val regex = """^([0WDL] )+-.+$""".toRegex()
+    val regex2 = """- (.+)""".toRegex()
+    val regex3 = """[0WDL]""".toRegex()
+    File(inputName).forEachLine { line ->
+        if (!line.matches(regex)) throw IllegalStateException()
+        table.add(Pair(regex2.find(line)!!.groupValues.last(), mutableListOf()))
+        regex3.findAll(line).forEach { table.last().second.add(it.value.toCharArray().last()) }
+    }
+    val map = mapOf('W' to 'L', 'L' to 'W', 'D' to 'D')
+    for (i in 0 until table.size) {
+        if (table.size != table[i].second.size) throw IllegalStateException()
+        for (j in 0 until i) {
+            if (table[i].second[j] == '0' || table[j].second[i] == '0') throw IllegalStateException()
+            if (table[i].second[j] != map[table[j].second[i]]) throw IllegalStateException()
+        }
+        if (table[i].second[i] != '0') throw IllegalStateException()
+    }
+    // Удовлетворительно
+    var max = Pair(-1, "-1")
+    for (i in table) {
+        var sum = 0
+        for (j in i.second) {
+            sum += when (j) {
+                'W' -> 3
+                'D' -> 1
+                else -> 0
+            }
+        }
+        if (max.first < sum) {
+            max = Pair(sum, i.first)
+        }
+    }
+    if (max.first == -1) throw IllegalStateException()
+    return max.second
+}
+
+//File(outputName).bufferedWriter().use { it.appendLine(answer.second.joinToString()) }
+//File(outputName).bufferedWriter().use { writer ->
+//for (i in text)
+//writer.appendLine(i.padStart(i.length + (maxSize - i.length) / 2, ' '))
+//}
