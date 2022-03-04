@@ -68,7 +68,15 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = TODO()
+fun ageDescription(age: Int): String {
+    return when{
+        age % 100 in 10..20 -> "$age лет"
+        age % 10 == 1 -> "$age год"
+        age % 10 in 2..4 -> "$age года"
+        else -> "$age лет"
+    }
+}
+
 
 /**
  * Простая (2 балла)
@@ -122,7 +130,35 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    var res = 0
+    if ( a > b && a > c){
+        when{
+            c * c + b * b < a * a -> res = 0
+            c * c + b * b == a * a -> res = 1
+            c * c + b * b > a * a -> res = 2
+            else -> res = -1
+        }
+    }
+    if ( b > a && b > c){
+        when{
+            c * c + a * a < b * b -> res = 0
+            c * c + a * a == b * b -> res = 1
+            c * c + a * a > b * b -> res = 2
+            else -> res = -1
+        }
+    }
+    if ( c > b && c > a){
+        when{
+            a * a + b * b < c * c -> res = 0
+            a * a + b * b == c * c -> res = 1
+            a * a + b * b > c * c -> res = 2
+            else -> res = -1
+        }
+    }
+    if (a >= b + c || b >= a + c || c >= b + a) res = -1
+    return res
+}
 
 /**
  * Средняя (3 балла)

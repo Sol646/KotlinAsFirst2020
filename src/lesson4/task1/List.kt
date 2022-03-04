@@ -346,3 +346,17 @@ fun russian(n: Int): String {
     for (idx in result.size - 1 downTo 0) reverseResult.add(result[idx])
     return reverseResult.joinToString(separator = " ")
 }
+
+fun casesPerDay(todos: List<String>): Map<String, Int> {
+    val correctWeek = setOf("понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье")
+    val result = mutableMapOf<String, Int>()
+    for (i in todos) {
+        val day = i.split("-")[0].trim()
+        if (!correctWeek.contains(day)) throw IllegalArgumentException()
+        var counter = result.getOrDefault(day, 0)
+        counter++
+        result[day] = counter
+    }
+    return result
+}
+
