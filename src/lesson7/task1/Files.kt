@@ -2,6 +2,7 @@
 
 package lesson7.task1
 
+
 import java.io.File
 import java.util.*
 
@@ -103,7 +104,7 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  * Регистр заменённых букв следует сохранять.
  *
  * Исключения (жюри, брошюра, парашют) в рамках данного задания обрабатывать не нужно
- *
+ *(?=[а-яА-Я]|\s?)
  */
 fun sibilants(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
@@ -252,7 +253,18 @@ fun top20Words(inputName: String): Map<String, Int> = TODO()
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: String) {
-    TODO()
+    val newDict = dictionary.map {
+        it.key.lowercaseChar() to it.value.lowercase(Locale.getDefault())
+    }.toMap()
+    val writer = File(outputName).bufferedWriter()
+    for (line in File(inputName).readLines())
+        writer.appendLine(line.fold("") { newline, let ->
+            newline + if (let.lowercaseChar() in newDict)
+                if (let.isUpperCase() && let.isLetter()) newDict[let.lowercaseChar()]?.replaceFirstChar { it.uppercaseChar() }
+                else newDict[let.lowercaseChar()]
+            else let
+        })
+    writer.close()
 }
 
 /**

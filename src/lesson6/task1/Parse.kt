@@ -18,9 +18,13 @@ import java.util.*
 fun timeStrToSeconds(str: String): Int {
     val parts = str.split(":")
     var result = 0
-    for (part in parts) {
-        val number = part.toInt()
-        result = result * 60 + number
+    try {
+        for (part in parts) {
+            val number = part.toInt()
+            result = result * 60 + number
+        }
+    } catch (e: NumberFormatException) {
+        return -1
     }
     return result
 }
@@ -31,7 +35,7 @@ fun timeStrToSeconds(str: String): Int {
  * Дано число n от 0 до 99.
  * Вернуть его же в виде двухсимвольной строки, от "00" до "99"
  */
-fun twoDigitStr(n: Int) = if (n in 0..9) "0$n" else "$n"
+fun twoDigitStr(n: Int) = if (n in 0 .. 9) "0$n" else "$n"
 
 /**
  * Пример
@@ -44,24 +48,6 @@ fun timeSecondsToStr(seconds: Int): String {
     val minute = (seconds % 3600) / 60
     val second = seconds % 60
     return String.format("%02d:%02d:%02d", hour, minute, second)
-}
-
-/**
- * Пример: консольный ввод
- */
-fun main() {
-    println("Введите время в формате ЧЧ:ММ:СС")
-    val line = readLine()
-    if (line != null) {
-        val seconds = timeStrToSeconds(line)
-        if (seconds == -1) {
-            println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
-        } else {
-            println("Прошло секунд с начала суток: $seconds")
-        }
-    } else {
-        println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
-    }
 }
 
 
@@ -139,7 +125,19 @@ fun bestLongJump(jumps: String): Int {
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    var max = -1
+    var a = jumps
+    if (a.contains(Regex("""[^-%+0-9\s]|\d+(?=[%+-])|(?<=[%+-])\d+"""))) return max
+    a = Regex("[-%]").replace(a, "")
+    a = Regex("""\d+ (?![+\w])""").replace(a, "")
+    a = a.replace(" ", "")
+    val parts = Regex("[+]").split(a).toMutableList()
+    if (parts.isNotEmpty()) for (i in parts) {
+        if (i != "") if (i.toInt() > max) max = i.toInt()
+    }
+    return max
+}
 
 /**
  * Сложная (6 баллов)

@@ -3,6 +3,7 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
 import kotlin.math.max
 import kotlin.math.sqrt
 
@@ -10,6 +11,10 @@ import kotlin.math.sqrt
 // Максимальное количество баллов = 6
 // Рекомендуемое количество баллов = 5
 // Вместе с предыдущими уроками = 9/12
+
+fun main(){
+        println(triangleKind(4.0, 6.0, 8.0))
+}
 
 /**
  * Пример
@@ -89,7 +94,18 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double = TODO()
+): Double {
+    val s1 = t1 * v1
+    val s2 = t2 * v2
+    val s3 = t3 * v3
+    val sH = (s1 + s2 + s3) / 2
+    val tH = when {
+        sH <= s1 -> sH / v1
+        sH <= s1 + s2 -> t1 + (sH - s1) / v2
+        else -> t1 + t2 + (sH - s1 - s2) / v3
+    }
+    return tH
+}
 
 /**
  * Простая (2 балла)

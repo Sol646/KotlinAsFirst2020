@@ -10,6 +10,7 @@ import kotlin.math.sqrt
 // Рекомендуемое количество баллов = 8
 // Вместе с предыдущими уроками = 24/33
 
+
 /**
  * Пример
  *
@@ -99,7 +100,7 @@ fun squares(vararg array: Int) = squares(array.toList()).toTypedArray()
  */
 fun isPalindrome(str: String): Boolean {
     val lowerCase = str.lowercase().filter { it != ' ' }
-    for (i in 0..lowerCase.length / 2) {
+    for (i in 0 .. lowerCase.length / 2) {
         if (lowerCase[i] != lowerCase[lowerCase.length - i - 1]) return false
     }
     return true

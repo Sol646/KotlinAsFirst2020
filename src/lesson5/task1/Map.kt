@@ -2,6 +2,10 @@
 
 package lesson5.task1
 
+import ru.spbstu.wheels.sorted
+import java.util.*
+
+
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -208,7 +212,13 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
+fun canBuildFrom(chars: List<Char>, word: String): Boolean {
+    val c = mutableSetOf<Char>()
+    for (b in chars.toSet()) c.add(b.lowercaseChar())
+    for (a in word.lowercase(Locale.getDefault()))
+        if (a !in c) return false
+    return true
+}
 
 /**
  * Средняя (4 балла)
@@ -231,6 +241,7 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
     return result.filter { it.value > 1 }
 }
 
+
 /**
  * Средняя (3 балла)
  *
@@ -243,7 +254,21 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean = TODO()
+
+fun main() {
+    println(hasAnagrams(listOf("рот", "свет", "код", "дверь")))
+}
+
+fun hasAnagrams(words: List<String>): Boolean {
+    val list = emptyList<String>().toMutableList()
+    for (i in words) {
+        list.add(i.split("").sorted().joinToString(""))
+    }
+    for (i in list.indices) {
+        if (list[i] in list && i != list.indexOf(list[i])) return true
+    }
+    return false
+}
 
 /**
  * Сложная (5 баллов)
@@ -307,6 +332,7 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     }
     return Pair(-1, -1)
 }
+
 
 /**
  * Очень сложная (8 баллов)

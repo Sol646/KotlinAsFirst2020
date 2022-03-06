@@ -2,6 +2,9 @@
 
 package lesson3.task1
 
+import lesson1.task1.sqr
+import java.lang.Math.max
+import java.lang.Math.pow
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -16,7 +19,7 @@ import kotlin.math.sqrt
  */
 fun factorial(n: Int): Double {
     var result = 1.0
-    for (i in 1..n) {
+    for (i in 1 .. n) {
         result = result * i // Please do not fix in master
     }
     return result
@@ -31,7 +34,7 @@ fun isPrime(n: Int): Boolean {
     if (n < 2) return false
     if (n == 2) return true
     if (n % 2 == 0) return false
-    for (m in 3..sqrt(n.toDouble()).toInt() step 2) {
+    for (m in 3 .. sqrt(n.toDouble()).toInt() step 2) {
         if (n % m == 0) return false
     }
     return true
@@ -44,7 +47,7 @@ fun isPrime(n: Int): Boolean {
  */
 fun isPerfect(n: Int): Boolean {
     var sum = 1
-    for (m in 2..n / 2) {
+    for (m in 2 .. n / 2) {
         if (n % m > 0) continue
         sum += m
         if (sum > n) break
@@ -243,6 +246,7 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
+
 fun squareSequenceDigit(n: Int): Int = TODO()
 
 /**
